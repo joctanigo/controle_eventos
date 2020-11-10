@@ -1,0 +1,33 @@
+<div class="row" style="margin: 0;">
+    <div class="conteiner col-xs-12 col-md-6 col-lg-4" *ngFor="let evento of resEventos">
+        <div class="card text-center " style="margin: 10px;">
+            <div *ngIf="evento.tipoEvento ==  1">
+                <div class="card-header border-success bg-success">
+                    <strong>
+                  {{evento.titulo}}
+                </strong>
+                </div>
+            </div>
+            <div *ngIf="evento.tipoEvento ==  2">
+                <div class="card-header border-warning bg-warning">
+                    <strong>
+                {{evento.titulo}}
+              </strong>
+                </div>
+            </div>
+            <div *ngIf="evento.tipoEvento ==  3">
+                <div class="card-header border-danger bg-danger">
+                    <strong>
+              {{evento.titulo}}
+            </strong>
+                </div>
+            </div>
+
+            <div class="card-body bg-transparent">
+                <p class="card-text">{{evento.descricao}}</p>
+                <p class='text-center'>Período de inscrição até: {{evento.data_evento| date: 'dd/MM/yyyy'}}</p>
+                <button [routerLink]="['/inscricao/',evento.id]" class="btn btn-primary" [disabled]="evento.tipoEvento!=1">Inscrever-se</button>
+            </div>
+        </div>
+    </div>
+</div>

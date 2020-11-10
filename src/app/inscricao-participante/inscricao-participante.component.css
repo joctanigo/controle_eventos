@@ -1,0 +1,24 @@
+.bloco-form-input .ng-invalid.ng-dirty:not(form) {
+    border: 1px solid red;
+    border-radius: 5px;
+    background: #F8D7DA no-repeat 99% center;
+}
+
+.bloco-form-input .ng-invalid.ng-touched:not(form) {
+    border: 1px solid red;
+    border-radius: 5px;
+    background: #F8D7DA no-repeat 99% center;
+}
+
+.bloco-form-input {
+    position: relative;
+}
+
+.erroMensagem {
+    color: #d9534f;
+    font-size: 12px;
+}
+
+input[type="file"] {
+    display: none;
+}

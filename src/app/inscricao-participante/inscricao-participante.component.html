@@ -1,0 +1,87 @@
+<form class=" justify-content-center " [formGroup]="inscricaoForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+
+    <div class="container" style="margin-top: 15px;">
+        <div class="col-12" style="text-align: right;">
+            <button [routerLink]="['']" type="button" class="btn btn-primary mt-4 ">
+        Voltar
+      </button>
+        </div>
+        <div class="col-xl-12 col-sm-8 col-12 ">
+
+            <div *ngIf="inscricaoForm.get('foto').value!=null;else semIMG">
+                <img src="{{inscricaoForm.get('foto').value}}" alt="" id="img" style="max-width: 100px;">
+            </div>
+            <ng-template #semIMG>
+                <img src="../../assets/avatar.png" alt="" id="img" style="max-width: 100px;">
+            </ng-template>
+
+        </div>
+        <div class="col-xl-12 col-sm-8 col-12 ">
+            <label class="btn btn-primary mt-4" for="arquivo">Enviar foto perfil *</label>
+            <input type="file" id="arquivo" (change)="onUploadChange($event)" accept=".png, .jpg, .jpeg" />
+        </div>
+        <div class="col-xl-12 col-sm-8 col-12 ">
+            <div class="bloco-form-input">
+                <label for="nomeParticipante">Nome do Participante * </label>
+                <input id="nomeParticipante" type="text" formControlName="nome" placeholder="Digite seu nome Completo" class="form-control form-control-success">
+            </div>
+
+        </div>
+        <div class="row" style="margin: 0px;">
+            <div class="col">
+                <div class="bloco-form-input">
+                    <label for="cpf">CPF * </label>
+                    <input id="cpf" type="text" formControlName="cpf" placeholder="999.999.999-99" [textMask]="{mask: maskCpf}" [(ngModel)]="myModel" class="form-control" name="cpf" placeHolderCharacter="*" mask="000.000.000-00" (blur)="checaCPF()" />
+                    <div class="erroMensagem" id="erroCpfinvalido"></div>
+                </div>
+            </div>
+
+            <div class="col ">
+                <div class="bloco-form-input ">
+                    <label for="telefone ">Telefone *</label>
+                    <input id="telefone " formControlName="telefone" placeholder="(99)99999-9999" [textMask]="{mask: maskTelefone}" type="text " class="form-control" name="cpf" placeHolderCharacter="*" mask="(00)00000-0000" class="form-control form-control-success ">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-sm-8 col-12 ">
+            <div class="bloco-form-input ">
+                <label for="email">Email * </label>
+                <input id="email" type="text" formControlName="email" placeholder="exemplo@email.com" class="form-control form-control-success">
+            </div>
+        </div>
+
+        <div class="col-12" style="text-align: right;">
+            <button (click)="onSubmit(template)" type="button" class="btn btn-primary mt-4" [disabled]="inscricaoForm.invalid">
+        Inscrever-se
+      </button>
+        </div>
+    </div>
+</form>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Comprovante inscrição</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div id="content" #content>
+        <div class="modal-body" id="comprovante">
+            <img src="{{inscricaoForm.get('foto').value}}" alt="" id="img" style="max-width: 100px;">
+        </div>
+        <div id="content" #content class="container" style="margin:10px">
+            <strong>DADOS PARTICIPANTE</strong>
+            <p>{{inscricaoForm.get('nome').value}}</p>
+            <p>{{inscricaoForm.get('email').value}}</p>
+            <p>{{inscricaoForm.get('cpf').value.substr(0,3)}}.{{inscricaoForm.get('cpf').value.substr(3,3)}}.{{inscricaoForm.get('cpf').value.substr(6,3)}}-{{inscricaoForm.get('cpf').value.substr(9)}}</p>
+            <p>{{inscricaoForm.get('telefone').value}}</p>
+            <hr>
+            <strong>DADOS DA INSCRIÇÃO</strong>
+            <p><strong>Nº de inscrição: </strong>{{evento.vagas}}</p>
+            <p><strong>Evento:</strong> {{evento.titulo}}  <strong> Data do evento</strong>{{evento.data_evento|date: 'dd/MM/yyyy'}}</p>
+            <p><strong>Descrição:</strong> {{evento.descricao}}</p>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="downloadPDF()">Salvar comprovante</button>
+</ng-template>

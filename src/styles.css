@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #717171;
+    border-color: #717171;
+}
